@@ -1,4 +1,9 @@
-#Application Specifications
+#Yik My Professor (working title)
+
+##People in class 9/16/14
+- Emily Crowe
+- Michael Schoenfield
+- MingYang Lu
 
 ##Overview
 
@@ -8,12 +13,13 @@ A post will take the form of a short- to medium-length comment regarding a speci
 
 ##User Stories
 - As a contributor, I want my posts to be anonymous.
-- As a contributor, I would like to be able to make a post and associate it with a professor, TA, or class.
-- (optional) As a contributor, I would like to be able to post GIFs in my posts.
+- As a contributor, I want to be able to make a post and associate it with a professor, TA, or class.
+- (optional) As a contributor, I would like to be able to post GIFs/memes in addition to text.
 - As a contributor, I want to be able to add professors/classes to a database.
 - As a contributor, I want to be able to get push notifications when someone upvotes or downvotes my post.
 - As a user, I want to be able to upvote or downvote posts, and if a post's rating is below a certain threshold, I don't want to see it.
+- As a user, I want to bea ble to see the date and time a post was made.
 - As a user, I want to be able to flag inappropriate or non-salient posts for review/removal.
 - As a user, I want to be able to search for specific professors/classes and filter by department/class/professor/etc. 
-- As a user, when I open the app, I want to be able to view the votes according to their trending and top posts per month/week/day/all-time
+- As a user, when I open the app, I want to be able to view the votes according to most recent, trending, and top posts per month/week/day/all-time.
 - As a moderator of the app, I want to be able to hide posts which have been flagged for review and ban people whose posts are consistently downvoted/flagged.
