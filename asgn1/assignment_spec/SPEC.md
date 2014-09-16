@@ -1,4 +1,9 @@
-#Specifications
+#Tweet My Professor (working title)
+
+##People in class 9/16/14
+- Emily Crowe
+- Michael Schoenfield
+- MingYang Lu
 
 ##Overview
 
