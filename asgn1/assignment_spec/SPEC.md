@@ -1,17 +1,17 @@
-#Tweet My Professor (working title)
+##Yik My Professor (working title)
 
-##People in class 9/16/14
+###People in class 9/16/14
 - Emily Crowe
 - Michael Schoenfield
 - MingYang Lu
 
-##Overview
+###Overview
 
 This application will be an open, anonymous Twitter/Yik Yak hybrid for campus-specific professor and class commentary by students. When a user first opens the application, he or she is assigned a unique ID, not for personal use or public identification, but rather for administrative moderation of posts and upvotes/downvotes. 
 
 A post will take the form of a short- to medium-length comment regarding a specific professor, TA, or class. After the post is sent to a central database and disseminated to other phones, it will be displayed in a Reddit/Yik Yak style, and other users may upvote, downvote, or flag inappropriate posts for review.  The app need not completely live, but rather update every hour, half-hour, etc. 
 
-##User Stories
+###User Stories
 - As a contributor, I want my posts to be anonymous.
 - As a contributor, I would like to be able to make a post and associate it with a professor, TA, or class.
 - (optional) As a contributor, I would like to be able to post GIFs/memes in addition to text.
