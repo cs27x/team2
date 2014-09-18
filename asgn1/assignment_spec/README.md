@@ -32,6 +32,7 @@ A post will take the form of a short- to medium-length comment regarding a speci
 
 ##Evaluation Rubrics
 These rubrics comprise 130 points plus 25 optional points for the completion of extra features.
+
 1. (20 pts) - As a contributor, I want to be able to post comments (anecdotes/raves/complaints/reviews) regarding a Vandy professor or class. Evaluation process:
     * Open the application (5 pts). Write a post (5 pts). Submit the post and be able to view on local device (5 pts). Be able to view the comment on other devices (10 pts).
 
