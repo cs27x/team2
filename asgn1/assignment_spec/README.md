@@ -11,6 +11,13 @@ This application will be an open, anonymous Twitter/Yik Yak hybrid for campus-sp
 
 A post will take the form of a short- to medium-length comment regarding a specific professor, TA, or class. After the post is sent to a central database and disseminated to other phones, it will be displayed in a Reddit/Yik Yak style, and other users may upvote, downvote, or flag inappropriate posts for review.  The app need not completely live, but rather update every hour, half-hour, etc. 
 
+##User Stories for 9/25/14
+1. As a contributor, I want to be able to post comments regarding a Vandy professor or class and have them stored on my phone so that I can see my own posts while the app is running.
+2. As a contributor, I want my posts to be anonymous and disappear when the app is closed so that I don't have to see old rants.
+3. As a contributor, I want to be able to have a form field to enter a professor's name so that I can associate my post with a professor and/or class when I create it.
+6. As a contributor, I want to be able to see all my posts on one screen.
+10. As a user, I want to be able to see the date and time a post was made.
+
 ##User Stories
 1. As a contributor, I want to be able to post comments (anecdotes/raves/complaints/reviews) regarding a Vandy professor or class.
 2. As a contributor, I want my posts to be anonymous.
