@@ -56,5 +56,16 @@ public class HistoricalSitesListTest {
 		hsl.delete(hs);
 		assertTrue(hsl.getCurrentList().isEmpty());
 	}
+	
+	@Test
+	public void testClear() {
+		HistoricalSite hs = new HistoricalSite("Franklin Park");
+		HistoricalSitesList hsl = new HistoricalSitesList();
+		assertTrue(hsl.getCurrentList().isEmpty());
+		hsl.add(hs);
+		assertFalse(hsl.getCurrentList().isEmpty());
+		hsl.discardList();
+		assertTrue(hsl.getCurrentList().isEmpty());
+	}
 
 }

@@ -55,4 +55,13 @@ public class HistoricalSite {
 	public String getHistoryDescription() {
 		return historyDescription;
 	}
+	
+	public boolean equals(Object obj) {
+		if (!(obj instanceof HistoricalSite))
+			return false;
+		if (obj == this)
+			return true;
+		HistoricalSite rhs = (HistoricalSite)obj;
+		return new EqualsBuilder().
+	}
 }

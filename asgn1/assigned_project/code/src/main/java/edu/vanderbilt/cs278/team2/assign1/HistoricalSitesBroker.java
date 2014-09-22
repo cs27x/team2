@@ -36,11 +36,6 @@ public class HistoricalSitesBroker {
 	}
 	
 	public void visit(HistoricalSite hs) {
-		for (HistoricalSite element: curList.getCurrentList())
-			if (element.equals(hs)) {
-				element.setVisited();
-				return;
-			}
-		throw new NoSuchElementException(hs.getDisplayName() + " is not in the List.");
+		curList.visit(hs);
 	}
 }

@@ -34,4 +34,8 @@ public class HistoricalSitesList {
 			if (iter.next().equals(oldSite))
 				iter.remove();
 	}
+	
+	public void discardList() {
+		sites.clear();
+	}
 }
