@@ -2,16 +2,44 @@ package edu.vanderbilt.cs278.team2.assign1;
 
 public class HistoricalSite {
 	private boolean visited;
+	
 	private String displayName;
 	private String locationDescription;
-	private Location location;
+	private double latitude;
+	private double longitude;
 	private String historyDescription;
+	private Location location = new Location();
 	
-	public HistoricalSite(String name) {
-		this.displayName = name;
+	 @Override
+	public boolean equals(Object o) {
+	 
+	        // If the object is compared with itself then return true  
+	        if (o == this) {
+	            return true;
+	        }
+	 
+	        /* Check if o is an instance of Complex or not
+	          "null instanceof [type]" also returns false */
+	        if (!(o instanceof HistoricalSite)) {
+	            return false;
+	        }
+	         
+	        // typecast o to Complex so that we can compare data members 
+	        HistoricalSite c = (HistoricalSite) o;
+	         
+	        // Compare the data members and return accordingly 
+	        return Double.compare(longitude, c.getLocation().getLongitude()) == 0
+	                && Double.compare(latitude, c.getLocation().getLatitude()) == 0
+	                && historyDescription == c.getHistoryDescription()
+	                && displayName == c.getDisplayName()
+	        		&& locationDescription == c.getLocationDescription();
 	}
 	public boolean isVisited() {
 		return visited;		
+	}
+	
+	public HistoricalSite(String siteName) {
+		this.displayName = siteName;
 	}
 	
 	public void setVisited() {
@@ -41,7 +69,7 @@ public class HistoricalSite {
 	public void setLocation(Location l) {
 		if (l == null)
 				throw new IllegalArgumentException("Location cannot be null.");
-		location = l;
+		this.location = l;
 	}
 	
 	public Location getLocation() {
@@ -54,14 +82,5 @@ public class HistoricalSite {
 	
 	public String getHistoryDescription() {
 		return historyDescription;
-	}
-	
-	public boolean equals(Object obj) {
-		if (!(obj instanceof HistoricalSite))
-			return false;
-		if (obj == this)
-			return true;
-		HistoricalSite rhs = (HistoricalSite)obj;
-		return new EqualsBuilder().
 	}
 }

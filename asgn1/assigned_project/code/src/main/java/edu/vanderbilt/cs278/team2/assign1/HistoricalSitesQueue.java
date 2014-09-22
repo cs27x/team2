@@ -14,6 +14,12 @@ public class HistoricalSitesQueue extends HistoricalSitesList {
 			throw new NoSuchElementException(lhs.getDisplayName() + " is not in the List.");
 		if (!sites.contains(rhs))
 			throw new NoSuchElementException(rhs.getDisplayName() + " is not in the List.");
+		
+		int index_lhs, index_rhs;
+		index_lhs = sites.indexOf(lhs);
+		index_rhs = sites.indexOf(rhs);
+		sites.set(index_lhs,  rhs);
+		sites.set(index_rhs, lhs);
 	}
 	
 	public void visit(HistoricalSite hs) {
