@@ -38,4 +38,12 @@ public class HistoricalSitesList {
 	public void discardList() {
 		sites.clear();
 	}
+	
+	public boolean isEmpty() {
+		return sites.isEmpty();
+	}
+	
+	public int size() {
+		return sites.size();
+	}
 }

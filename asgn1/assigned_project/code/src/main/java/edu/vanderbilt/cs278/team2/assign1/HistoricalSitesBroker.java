@@ -1,41 +1,69 @@
 package edu.vanderbilt.cs278.team2.assign1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
+class DistanceComparator implements Comparator<HistoricalSite> {
+	
+	protected Location l;
+	
+	public DistanceComparator(Location l) {
+		this.l = l;
+	}
+	
+	public int compare(HistoricalSite lhs, HistoricalSite rhs) {
+		return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));
+		
+	}
+}
 public class HistoricalSitesBroker {
 	
-	HistoricalSitesQueue curList;
+	HistoricalSitesQueue curList = new HistoricalSitesQueue();
 	
-	public List<HistoricalSite> getVisitedList() {
+
+	public HistoricalSitesQueue getVisitedList() {
 		List<HistoricalSite> visitedSites = new ArrayList<HistoricalSite>();
 		for (HistoricalSite hs : curList.getCurrentList()) {
 			if (hs.isVisited())
 				visitedSites.add(hs);
 		}
-		return visitedSites;
+		HistoricalSitesQueue visitedList = new HistoricalSitesQueue();
+		visitedList.setCurrentList(visitedSites);
+		return visitedList;
 	}
 	
-	public List<HistoricalSite> getUnvisitedList() {
-		List<HistoricalSite> visitedSites = new ArrayList<HistoricalSite>();
+	public HistoricalSitesQueue getUnvisitedList() {
+		List<HistoricalSite> unVisitedSites = new ArrayList<HistoricalSite>();
 		for (HistoricalSite hs : curList.getCurrentList()) {
 			if (!hs.isVisited())
-				visitedSites.add(hs);
+				unVisitedSites.add(hs);
 		}
-		return visitedSites;
+		HistoricalSitesQueue unvisitedList = new HistoricalSitesQueue();
+		unvisitedList.setCurrentList(unVisitedSites);
+		return unvisitedList;
 	}
 	
-	public List<HistoricalSite> getListOrderedByDistanceFrom(Location l) {
-		List<HistoricalSite> reorderedList = new ArrayList<HistoricalSite>();
-		return reorderedList;
+	public HistoricalSitesQueue getListOrderedByDistanceFrom(Location l) {
+		List<HistoricalSite> reorderedList = new ArrayList<HistoricalSite>(curList.getCurrentList());
+		Collections.sort(reorderedList, new DistanceComparator(l));
+		
+		HistoricalSitesQueue hsq = new HistoricalSitesQueue();
+		hsq.setCurrentList(reorderedList);
+		return hsq;
 	}
 	
-	public List<HistoricalSite> getCurrentList() {
-		return curList.getCurrentList();
+	public HistoricalSitesQueue getCurrentList() {
+		return curList;
 	}
 	
 	public void visit(HistoricalSite hs) {
 		curList.visit(hs);
+	}
+	
+	protected void add(HistoricalSite hs) {
+		curList.add(hs);
 	}
 }
