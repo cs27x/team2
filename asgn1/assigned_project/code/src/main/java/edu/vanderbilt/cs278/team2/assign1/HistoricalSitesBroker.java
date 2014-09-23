@@ -6,23 +6,18 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Comparator;
 
-class DistanceComparator implements Comparator<HistoricalSite> {
-	
-	protected Location l;
-	
-	public DistanceComparator(Location l) {
-		this.l = l;
-	}
-	
-	public int compare(HistoricalSite lhs, HistoricalSite rhs) {
-		return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));
-		
-	}
-}
 public class HistoricalSitesBroker {
 	
 	HistoricalSitesQueue curList = new HistoricalSitesQueue();
-	
+	protected class DistanceComparator implements Comparator<HistoricalSite> {		
+		protected Location l;		
+		public DistanceComparator(Location l) {
+			this.l = l;
+		}		
+		public int compare(HistoricalSite lhs, HistoricalSite rhs) {
+			return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));			
+		}
+	}
 
 	public HistoricalSitesQueue getVisitedList() {
 		List<HistoricalSite> visitedSites = new ArrayList<HistoricalSite>();
