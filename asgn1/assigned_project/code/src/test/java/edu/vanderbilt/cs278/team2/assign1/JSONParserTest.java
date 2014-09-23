@@ -14,9 +14,8 @@ public class JSONParserTest {
 	public void testGetMarkerData() throws Exception {
 		JSONParser json = new JSONParser(new URL(NASHVILLE_HISTORICAL_SITES_URL));
 		List<HistoricalSite> sites = json.getMarkerData();
-		for (HistoricalSite hs: sites) {
-			System.out.println(hs.getDisplayName());
-		}
+		assertTrue(sites.size() == 155);  // there should be 155 entries in the historical markers list
+		assertTrue(sites.get(0).getDisplayName().equals("HEATON'S STATION")); // first entry should be heaton's station
 		//json.printMarkerData();
 	}
 
