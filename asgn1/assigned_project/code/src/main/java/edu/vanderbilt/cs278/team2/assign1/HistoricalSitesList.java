@@ -20,19 +20,14 @@ public class HistoricalSitesList {
 		this.sites = newList;
 	}
 	
-	public void add(HistoricalSite newSite) {
-		for (HistoricalSite hs: sites)
-			if (hs.equals(newSite))
-				return;
+	public void add(HistoricalSite newSite) {		
+		if (sites.contains(newSite))
+			return;
 		sites.add(newSite);
 	}
 	
 	public void delete(HistoricalSite oldSite) {
-		Iterator<HistoricalSite> iter = sites.iterator();
-		HistoricalSite hs;
-		while (iter.hasNext())
-			if (iter.next().equals(oldSite))
-				iter.remove();
+		sites.remove(oldSite);
 	}
 	
 	public void discardList() {
