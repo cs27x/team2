@@ -22,17 +22,21 @@ public class dialogFragmentLocationOptions extends DialogFragment implements OnI
 
 	ListView mylist;
 
+	//creates the fragment view using the layout R.layout.location_dialog_fragment
+	//This is called when a view containing this activity is created
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.location_dialog_fragment, null, false);
+		
 		mylist = (ListView) view.findViewById(R.id.listOfLocationOptions);
 
 		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		return view;
 	}
 
+	//This is called when the dialogFragmentLocationOptions object is created
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 
