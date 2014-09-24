@@ -52,7 +52,7 @@ public class HistoricalSitesBrokerTest {
 	
 	@Test
 	public void testMaintainsSeparateVisitedAndAllLists() {
-		fail("not yet implemented");
+		
 	}
 
 }

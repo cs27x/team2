@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class HistoricalSitesList {
 	List<HistoricalSite> sites;
@@ -28,6 +29,15 @@ public class HistoricalSitesList {
 	
 	public void delete(HistoricalSite oldSite) {
 		sites.remove(oldSite);
+	}
+	
+	public void visit(HistoricalSite hs) {
+		for (HistoricalSite element: sites)
+			if (element.equals(hs)) {
+				element.setVisited();
+				return;
+			}
+		throw new NoSuchElementException(hs.getDisplayName() + " is not in the List.");
 	}
 	
 	public void discardList() {

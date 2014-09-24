@@ -9,6 +9,8 @@ import java.util.Comparator;
 public class HistoricalSitesBroker {
 	
 	HistoricalSitesQueue curList = new HistoricalSitesQueue();
+	private HistoricalSitesList masterList;
+	
 	protected class DistanceComparator implements Comparator<HistoricalSite> {		
 		protected Location l;		
 		public DistanceComparator(Location l) {
@@ -58,7 +60,21 @@ public class HistoricalSitesBroker {
 		curList.visit(hs);
 	}
 	
-	protected void add(HistoricalSite hs) {
+	public void add(HistoricalSite hs) {
 		curList.add(hs);
+	}
+
+	public HistoricalSitesList getMasterList() throws Exception {
+		if (masterList == null) {
+			masterList = new HistoricalSitesList();
+			HistoricalSiteDataProvider hsdp = HistoricalSiteDataProvider.getInstance();
+			if (!hsdp.fetchData()) {
+				throw new RuntimeException("Could not download data from https://data.nashville.gov");
+			}
+			masterList.setCurrentList(hsdp.getSitesList());
+			return masterList;
+		}
+		else
+			return masterList;
 	}
 }
