@@ -8,18 +8,8 @@ import java.util.Comparator;
 
 public class HistoricalSitesBroker {
 	
-	HistoricalSitesQueue curList = new HistoricalSitesQueue();
+	private HistoricalSitesQueue curList = new HistoricalSitesQueue();
 	private HistoricalSitesList masterList;
-	
-	protected class DistanceComparator implements Comparator<HistoricalSite> {		
-		protected Location l;		
-		public DistanceComparator(Location l) {
-			this.l = l;
-		}		
-		public int compare(HistoricalSite lhs, HistoricalSite rhs) {
-			return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));			
-		}
-	}
 
 	public HistoricalSitesQueue getVisitedList() {
 		List<HistoricalSite> visitedSites = new ArrayList<HistoricalSite>();
@@ -43,21 +33,16 @@ public class HistoricalSitesBroker {
 		return unvisitedList;
 	}
 	
-	public HistoricalSitesQueue getListOrderedByDistanceFrom(Location l) {
-		List<HistoricalSite> reorderedList = new ArrayList<HistoricalSite>(curList.getCurrentList());
-		Collections.sort(reorderedList, new DistanceComparator(l));
-		
-		HistoricalSitesQueue hsq = new HistoricalSitesQueue();
-		hsq.setCurrentList(reorderedList);
-		return hsq;
-	}
-	
 	public HistoricalSitesQueue getCurrentList() {
 		return curList;
 	}
 	
 	public void visit(HistoricalSite hs) {
 		curList.visit(hs);
+	}
+	
+	public void delete(HistoricalSite hs) {
+		curList.delete(hs);
 	}
 	
 	public void add(HistoricalSite hs) {

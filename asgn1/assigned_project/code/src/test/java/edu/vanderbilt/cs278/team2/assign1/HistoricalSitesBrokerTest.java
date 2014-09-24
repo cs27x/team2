@@ -7,14 +7,15 @@ import java.util.Iterator;
 
 public class HistoricalSitesBrokerTest {
 	private HistoricalSitesBroker hsb = new HistoricalSitesBroker();
+	private static final int NASHVILLE_GOV_HISTORICAL_SITES_MAX_COUNT = 155;
 
 	@Test
 	public void testGetUnvisitedList() {
 		hsb.getCurrentList().discardList();
 		hsb.add(new HistoricalSite("Franklin Park"));
 		hsb.add(new HistoricalSite("Lewis Ginter Gardens"));
-		assertFalse(hsb.curList.getCurrentList().isEmpty());
-		Iterator<HistoricalSite> iter = hsb.curList.getCurrentList().iterator();
+		assertFalse(hsb.getCurrentList().getCurrentList().isEmpty());
+		Iterator<HistoricalSite> iter = hsb.getCurrentList().getCurrentList().iterator();
 		HistoricalSite hs = iter.next();
 		hs.setVisited();
 		HistoricalSitesQueue hsq_unvisited = hsb.getUnvisitedList();
@@ -41,7 +42,7 @@ public class HistoricalSitesBrokerTest {
 		
 		Location ourLocation = new Location(36.142203, -86.802715);
 		
-		HistoricalSitesQueue reorderedList = hsb.getListOrderedByDistanceFrom(ourLocation);
+		HistoricalSitesQueue reorderedList = hsb.getCurrentList().getListReorderedByDistanceToLocation(ourLocation);
 		assertTrue(reorderedList.size()==3);
 		Iterator<HistoricalSite> iter = reorderedList.getCurrentList().iterator();
 		
@@ -51,7 +52,26 @@ public class HistoricalSitesBrokerTest {
 	}
 	
 	@Test
-	public void testMaintainsSeparateVisitedAndAllLists() {
+	public void testMaintainsSeparateVisitedAndAllLists() throws Exception {
+		assertTrue(hsb.getMasterList().size()== NASHVILLE_GOV_HISTORICAL_SITES_MAX_COUNT);
+		
+		Iterator<HistoricalSite> iter = hsb.getMasterList().getCurrentList().iterator();
+		
+		HistoricalSite hs1 = iter.next();
+		HistoricalSite hs2 = iter.next();
+		
+		hsb.add(hs1);
+		hsb.add(hs2);
+		
+		assertTrue(hsb.getCurrentList().size() == 2);
+		assertTrue(hsb.getUnvisitedList().size()==2);
+		
+		hsb.visit(hs1);
+		hsb.visit(hs2);
+		
+		assertTrue(hsb.getCurrentList().size() == 2);
+		assertTrue(hsb.getMasterList().size()== NASHVILLE_GOV_HISTORICAL_SITES_MAX_COUNT);
+		assertTrue(hsb.getVisitedList().size() == 2);
 		
 	}
 
