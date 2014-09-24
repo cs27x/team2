@@ -49,5 +49,10 @@ public class HistoricalSitesBrokerTest {
 		assertTrue(iter.next().equals(hs2));
 		assertTrue(iter.next().equals(hs3));
 	}
+	
+	@Test
+	public void testMaintainsSeparateVisitedAndAllLists() {
+		fail("not yet implemented");
+	}
 
 }

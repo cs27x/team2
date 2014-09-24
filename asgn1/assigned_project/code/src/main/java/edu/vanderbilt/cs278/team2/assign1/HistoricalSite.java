@@ -12,8 +12,9 @@ public class HistoricalSite {
 	@JsonProperty("location") private String locationDescription;
 	@JsonProperty("latitude") private double latitude;
 	@JsonProperty("longitude") private double longitude;
-	private String historyDescription;
-	@JsonProperty("marker_text") private Location location = new Location();
+	@JsonProperty("marker_text") private String historyDescription;
+	
+	private Location location = new Location();
 	
 	public HistoricalSite() {
 		super();
