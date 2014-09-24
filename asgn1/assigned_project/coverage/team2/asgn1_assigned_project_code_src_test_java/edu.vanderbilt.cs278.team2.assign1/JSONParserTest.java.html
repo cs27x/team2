@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>JSONParserTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</a> &gt; <a href="../../index.html" class="el_group">team2</a> &gt; <a href="../index.html" class="el_bundle">asgn1/assigned_project/code/src/test/java</a> &gt; <a href="index.source.html" class="el_package">edu.vanderbilt.cs278.team2.assign1</a> &gt; <span class="el_source">JSONParserTest.java</span></div><h1>JSONParserTest.java</h1><pre class="source lang-java linenums">package edu.vanderbilt.cs278.team2.assign1;
+
+import static org.junit.Assert.*;
+
+import java.net.URL;
+import java.util.List;
+
+import org.junit.Test;
+
+<span class="nc" id="L10">public class JSONParserTest {</span>
+	private static final String NASHVILLE_HISTORICAL_SITES_URL = &quot;https://data.nashville.gov/resource/2j6c-58gf.json&quot;;
+
+	@Test
+	public void testGetMarkerData() throws Exception {
+<span class="nc" id="L15">		JSONParser json = new JSONParser(new URL(NASHVILLE_HISTORICAL_SITES_URL));</span>
+<span class="nc" id="L16">		List&lt;HistoricalSite&gt; sites = json.getMarkerData();</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">		assertTrue(sites.size() == 155);  // there should be 155 entries in the historical markers list</span>
+<span class="nc" id="L18">		assertTrue(sites.get(0).getDisplayName().equals(&quot;HEATON'S STATION&quot;)); // first entry should be heaton's station</span>
+		//json.printMarkerData();
+<span class="nc" id="L20">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</div></body></html>

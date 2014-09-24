@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>HistoricalSitesBrokerIT.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</a> &gt; <a href="../../index.html" class="el_group">team2</a> &gt; <a href="../index.html" class="el_bundle">asgn1/assigned_project/code/src/test/java</a> &gt; <a href="index.source.html" class="el_package">edu.vanderbilt.cs278.team2.assign1</a> &gt; <span class="el_source">HistoricalSitesBrokerIT.java</span></div><h1>HistoricalSitesBrokerIT.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package edu.vanderbilt.cs278.team2.assign1;</span>
+
+/*
+ * The idea for this and the TextMenu and TextMenuItem classes are
+ * taken from: http://bytes.com/topic/java/insights/870013-text-based-menus
+ * Accessed 9/24/2014
+ * I do not claim any ownership or copyright.
+ */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import org.junit.Ignore;
+
+import com.example.josah.textmenu.*;
+
+/*
+ * Integration testing for Historical Sites Broker using a text interface
+ */
+@Ignore(&quot;This is an integration test that needs to be run as a Java app&quot;)
+<span class="nc" id="L21">public class HistoricalSitesBrokerIT {</span>
+	
+<span class="fc" id="L23">	protected static HistoricalSitesBroker hsb = new HistoricalSitesBroker();</span>
+    
+	public static  int getChoiceNumber(String commandPrompt) throws Exception {    	
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (hsb == null) {</span>
+<span class="nc" id="L27">        	throw new RuntimeException(&quot;Do not have a HistoricalSitesBroker&quot;);</span>
+        }
+<span class="fc" id="L29">		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));        </span>
+<span class="nc" id="L30">        while (true) {</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        	if (commandPrompt != null) {</span>
+<span class="fc" id="L32">        		System.out.print(&quot;Select item number to add: &quot;);</span>
+<span class="fc" id="L33">        		System.out.flush();</span>
+        	}
+<span class="fc" id="L35">            String line = br.readLine();</span>
+            try {
+<span class="fc" id="L37">                int option= Integer.parseInt(line);</span>
+<span class="pc bpc" id="L38" title="2 of 4 branches missed.">                if (option &gt;= 1 &amp;&amp; option &lt;= hsb.getMasterList().size())</span>
+<span class="fc" id="L39">                    return option;</span>
+            }
+<span class="nc" id="L41">            catch (NumberFormatException e) { }</span>
+<span class="nc" id="L42">            System.out.println(&quot;not a valid menu option: &quot;+line);</span>
+        } 
+    }
+		
+<span class="fc" id="L46">	private static TextMenuItem item1 = new TextMenuItem(&quot;Show All Sites&quot;, new Runnable() {</span>
+		public void run() {
+			try {
+<span class="fc" id="L49">				HistoricalSitesList hsl = hsb.getMasterList();</span>
+<span class="fc" id="L50">				int counter = 1;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">				for (HistoricalSite hs: hsl.getCurrentList()) {</span>
+<span class="fc" id="L52">					System.out.println(&quot;&quot; + counter++ + &quot;: &quot; + hs.getDisplayName());</span>
+				}
+<span class="fc" id="L54">			}</span>
+<span class="nc" id="L55">			catch (Exception e) { </span>
+<span class="nc" id="L56">				e.printStackTrace();</span>
+			}
+<span class="fc" id="L58">		}</span>
+	});	
+<span class="fc" id="L60">	private static TextMenuItem allListSubItem1 = new TextMenuItem(&quot;Add Location To Queue by Number&quot;, new Runnable() {</span>
+		public void run() {
+			try {
+<span class="fc" id="L63">				int locationNo = HistoricalSitesBrokerIT.getChoiceNumber(&quot;Select item number to add: &quot;);</span>
+<span class="fc" id="L64">				hsb.add(hsb.getMasterList().getCurrentList().get(locationNo-1));</span>
+<span class="fc" id="L65">			}</span>
+<span class="nc" id="L66">			catch (Exception e) {e.printStackTrace();};</span>
+<span class="fc" id="L67">		}</span>
+	});
+<span class="fc" id="L69">	private static TextMenuItem allListSubItem2 = new TextMenuItem(&quot;Visit Location From Master List by Number&quot;, new Runnable() {</span>
+		public void run() {
+			try {
+<span class="fc" id="L72">				int locationNo = HistoricalSitesBrokerIT.getChoiceNumber(&quot;Select item number to visit: &quot;);</span>
+<span class="fc" id="L73">				hsb.visit(hsb.getMasterList().getCurrentList().get(locationNo-1));</span>
+<span class="fc" id="L74">			}</span>
+<span class="nc" id="L75">			catch (Exception e) {e.printStackTrace();};</span>
+<span class="fc" id="L76">		}</span>
+	});
+	
+<span class="fc" id="L79">	private static TextMenuItem item2 = new TextMenuItem(&quot;See Visited List&quot;, new Runnable() {</span>
+		public void run() {			
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">			if (hsb.getVisitedList().isEmpty())</span>
+<span class="nc" id="L82">				System.out.println(&quot;VISITED LIST IS EMPTY&quot;);</span>
+			else {
+<span class="fc" id="L84">				System.out.println(&quot;PRINTING VISITED SITES&quot;);			</span>
+<span class="fc" id="L85">				int counter = 1;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">				for (HistoricalSite hs: hsb.getVisitedList().getCurrentList()) </span>
+<span class="fc" id="L87">					System.out.println(&quot;&quot; + counter++ + &quot;: &quot; + hs.getDisplayName());</span>
+			}
+<span class="fc" id="L89">		}</span>
+	});
+	
+<span class="fc" id="L92">	private static TextMenuItem item3 = new TextMenuItem(&quot;See Unvisited List&quot;, new Runnable() {</span>
+		public void run() {							
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">			if (hsb.getUnvisitedList().isEmpty())</span>
+<span class="fc" id="L95">				System.out.println(&quot;UNVISITED LIST IS EMPTY&quot;);</span>
+			else {
+<span class="nc" id="L97">				System.out.println(&quot;PRINTING UNVISITED SITES&quot;);</span>
+<span class="nc" id="L98">				int counter = 1;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">				for (HistoricalSite hs: hsb.getUnvisitedList().getCurrentList()) </span>
+<span class="nc" id="L100">					System.out.println(&quot;&quot; + counter++ + &quot;: &quot; + hs.getDisplayName());</span>
+			}
+<span class="fc" id="L102">		}</span>
+	});
+<span class="fc" id="L104">	private static TextMenu nestedMasterListMenu = new TextMenu(&quot;Master List&quot;, true, false, item1, allListSubItem1, allListSubItem2);</span>
+<span class="fc" id="L105">	private static TextMenu topMenu = new TextMenu(&quot;top menu&quot;, false, true, nestedMasterListMenu, item2, item3);</span>
+	
+	public static void main(String args[]) {
+<span class="nc" id="L108">		topMenu.run();</span>
+<span class="nc" id="L109">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</div></body></html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>HistoricalSitesQueue.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</a> &gt; <a href="../../index.html" class="el_group">team2</a> &gt; <a href="../index.html" class="el_bundle">asgn1/assigned_project/code/src/main/java</a> &gt; <a href="index.source.html" class="el_package">edu.vanderbilt.cs278.team2.assign1</a> &gt; <span class="el_source">HistoricalSitesQueue.java</span></div><h1>HistoricalSitesQueue.java</h1><pre class="source lang-java linenums">package edu.vanderbilt.cs278.team2.assign1;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+<span class="fc" id="L9">public class HistoricalSitesQueue extends HistoricalSitesList {</span>
+	
+	protected class DistanceComparator implements Comparator&lt;HistoricalSite&gt; {		
+		protected Location l;		
+<span class="nc" id="L13">		public DistanceComparator(Location l) {</span>
+<span class="nc" id="L14">			this.l = l;</span>
+<span class="nc" id="L15">		}		</span>
+		public int compare(HistoricalSite lhs, HistoricalSite rhs) {
+<span class="nc" id="L17">			return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));			</span>
+		}
+	}
+	
+	/**
+	 * 
+	 * @param hs: one of the sites we want to arrange
+	 * @param locationInQueue: the 0-based index of the other site we want to rearrange
+	 * @throws IndexOutOfBoundsException: if the locationInQueue does not correspond to another site
+	 * 
+	 * If the two sites are the same site then the function does nothing.
+	 * 
+	 */
+	public void rearrange(HistoricalSite hs, int locationInQueue) throws IndexOutOfBoundsException {
+<span class="nc" id="L31">		HistoricalSite otherSite = sites.get(locationInQueue);</span>
+<span class="nc bnc" id="L32" title="All 4 branches missed.">		if (hs==otherSite || hs.equals(otherSite)) {</span>
+<span class="nc" id="L33">			return;</span>
+		}
+<span class="nc" id="L35">		rearrange(hs, otherSite);</span>
+<span class="nc" id="L36">	}</span>
+	
+	public void rearrange(HistoricalSite lhs, HistoricalSite rhs) throws NoSuchElementException {
+		// first check if they're both in the queue
+<span class="nc bnc" id="L40" title="All 2 branches missed.">		if (!sites.contains(lhs))</span>
+<span class="nc" id="L41">			throw new NoSuchElementException(lhs.getDisplayName() + &quot; is not in the List.&quot;);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		if (!sites.contains(rhs))</span>
+<span class="nc" id="L43">			throw new NoSuchElementException(rhs.getDisplayName() + &quot; is not in the List.&quot;);</span>
+		
+		int index_lhs, index_rhs;
+<span class="nc" id="L46">		index_lhs = sites.indexOf(lhs);</span>
+<span class="nc" id="L47">		index_rhs = sites.indexOf(rhs);</span>
+<span class="nc" id="L48">		sites.set(index_lhs,  rhs);</span>
+<span class="nc" id="L49">		sites.set(index_rhs, lhs);</span>
+<span class="nc" id="L50">	}	</span>
+
+	public HistoricalSitesQueue getListReorderedByDistanceToLocation(Location l) {
+<span class="nc" id="L53">		List&lt;HistoricalSite&gt; reorderedList = new ArrayList&lt;HistoricalSite&gt;(sites);</span>
+<span class="nc" id="L54">		Collections.sort(reorderedList, new DistanceComparator(l));</span>
+		
+<span class="nc" id="L56">		HistoricalSitesQueue hsq = new HistoricalSitesQueue();</span>
+<span class="nc" id="L57">		hsq.setCurrentList(reorderedList);</span>
+<span class="nc" id="L58">		return hsq;</span>
+	}
+	
+	public HistoricalSitesQueue getListReorderedByDistanceToLocation(double latitude, double longitude) {
+<span class="nc" id="L62">		return getListReorderedByDistanceToLocation(new Location(latitude, longitude));</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</div></body></html>
