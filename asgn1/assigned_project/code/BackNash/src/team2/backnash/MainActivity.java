@@ -85,19 +85,21 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		
 	}  
 	
+	//This is the onItemClick listener. It's been hooked up to each item the listview.
 	public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 		Log.v(LOG_TAG, "Test Message: You clicked item #" + position);
 		showDialog(v);
     }
 	
+	//helper function. Shows a dialog. 
 	@SuppressLint("NewApi")
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void showDialog(View view) {
-	       
+	    //Android voodoo magic
         FragmentManager manager = getFragmentManager();
-
+        
+        //dialogFramnetLocationOptions is a class in team2.backnash
         dialogFragmentLocationOptions dialog = new dialogFragmentLocationOptions();
         dialog.show(manager, "dialog");
-
     }
 }  
