@@ -9,19 +9,15 @@ import edu.vanderbilt.backnash.location.Location;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HistoricalSite {
 	private boolean visited;
-
-	@JsonProperty("title")
-	private String displayName;
-	@JsonProperty("location")
-	private String locationDescription;
-	@JsonProperty("latitude")
-	private double latitude;
-	@JsonProperty("longitude")
-	private double longitude;
-	private String historyDescription;
-	@JsonProperty("marker_text")
+	
+	@JsonProperty("title") private String displayName;
+	@JsonProperty("location") private String locationDescription;
+	@JsonProperty("latitude") private double latitude;
+	@JsonProperty("longitude") private double longitude;
+	@JsonProperty("marker_text") private String historyDescription;
+	
 	private Location location = new Location();
-
+	
 	public HistoricalSite() {
 		super();
 	}

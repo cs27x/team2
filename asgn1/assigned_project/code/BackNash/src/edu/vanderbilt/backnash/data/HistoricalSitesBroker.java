@@ -6,23 +6,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Comparator;
 
-class DistanceComparator implements Comparator<HistoricalSite> {
-	
-	protected Location l;
-	
-	public DistanceComparator(Location l) {
-		this.l = l;
-	}
-	
-	public int compare(HistoricalSite lhs, HistoricalSite rhs) {
-		return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));
-		
-	}
-}
 public class HistoricalSitesBroker {
 	
-	HistoricalSitesQueue curList = new HistoricalSitesQueue();
-	
+	private HistoricalSitesQueue curList = new HistoricalSitesQueue();
+	private HistoricalSitesList masterList;
 
 	public HistoricalSitesQueue getVisitedList() {
 		List<HistoricalSite> visitedSites = new ArrayList<HistoricalSite>();
@@ -46,15 +33,6 @@ public class HistoricalSitesBroker {
 		return unvisitedList;
 	}
 	
-	public HistoricalSitesQueue getListOrderedByDistanceFrom(Location l) {
-		List<HistoricalSite> reorderedList = new ArrayList<HistoricalSite>(curList.getCurrentList());
-		Collections.sort(reorderedList, new DistanceComparator(l));
-		
-		HistoricalSitesQueue hsq = new HistoricalSitesQueue();
-		hsq.setCurrentList(reorderedList);
-		return hsq;
-	}
-	
 	public HistoricalSitesQueue getCurrentList() {
 		return curList;
 	}
@@ -63,7 +41,25 @@ public class HistoricalSitesBroker {
 		curList.visit(hs);
 	}
 	
-	protected void add(HistoricalSite hs) {
+	public void delete(HistoricalSite hs) {
+		curList.delete(hs);
+	}
+	
+	public void add(HistoricalSite hs) {
 		curList.add(hs);
+	}
+
+	public HistoricalSitesList getMasterList() throws Exception {
+		if (masterList == null) {
+			masterList = new HistoricalSitesList();
+			HistoricalSiteDataProvider hsdp = HistoricalSiteDataProvider.getInstance();
+			if (!hsdp.fetchData()) {
+				throw new RuntimeException("Could not download data from https://data.nashville.gov");
+			}
+			masterList.setCurrentList(hsdp.getSitesList());
+			return masterList;
+		}
+		else
+			return masterList;
 	}
 }

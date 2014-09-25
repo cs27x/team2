@@ -1,14 +1,41 @@
 package edu.vanderbilt.backnash.internal;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class HistoricalSitesQueue extends HistoricalSitesList {
-
-	public void rearrange(HistoricalSite hs, int locationInQueue) {
-
+	
+	protected class DistanceComparator implements Comparator<HistoricalSite> {		
+		protected Location l;		
+		public DistanceComparator(Location l) {
+			this.l = l;
+		}		
+		public int compare(HistoricalSite lhs, HistoricalSite rhs) {
+			return (int)(l.getDistanceTo(lhs.getLocation()) - l.getDistanceTo(rhs.getLocation()));			
+		}
 	}
-
-	public void rearrange(HistoricalSite lhs, HistoricalSite rhs) {
+	
+	/**
+	 * 
+	 * @param hs: one of the sites we want to arrange
+	 * @param locationInQueue: the 0-based index of the other site we want to rearrange
+	 * @throws IndexOutOfBoundsException: if the locationInQueue does not correspond to another site
+	 * 
+	 * If the two sites are the same site then the function does nothing.
+	 * 
+	 */
+	public void rearrange(HistoricalSite hs, int locationInQueue) throws IndexOutOfBoundsException {
+		HistoricalSite otherSite = sites.get(locationInQueue);
+		if (hs==otherSite || hs.equals(otherSite)) {
+			return;
+		}
+		rearrange(hs, otherSite);
+	}
+	
+	public void rearrange(HistoricalSite lhs, HistoricalSite rhs) throws NoSuchElementException {
 		// first check if they're both in the queue
 		if (!sites.contains(lhs))
 			throw new NoSuchElementException(lhs.getDisplayName()
@@ -22,16 +49,18 @@ public class HistoricalSitesQueue extends HistoricalSitesList {
 		index_rhs = sites.indexOf(rhs);
 		sites.set(index_lhs, rhs);
 		sites.set(index_rhs, lhs);
-	}
+	}	
 
-	public void visit(HistoricalSite hs) {
-		for (HistoricalSite element : sites)
-			if (element.equals(hs)) {
-				element.setVisited();
-				return;
-			}
-		throw new NoSuchElementException(hs.getDisplayName()
-				+ " is not in the List.");
+	public HistoricalSitesQueue getListReorderedByDistanceToLocation(Location l) {
+		List<HistoricalSite> reorderedList = new ArrayList<HistoricalSite>(sites);
+		Collections.sort(reorderedList, new DistanceComparator(l));
+		
+		HistoricalSitesQueue hsq = new HistoricalSitesQueue();
+		hsq.setCurrentList(reorderedList);
+		return hsq;
 	}
-
+	
+	public HistoricalSitesQueue getListReorderedByDistanceToLocation(double latitude, double longitude) {
+		return getListReorderedByDistanceToLocation(new Location(latitude, longitude));
+	}
 }

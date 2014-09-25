@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class HistoricalSitesList {
 	List<HistoricalSite> sites;
@@ -20,19 +21,23 @@ public class HistoricalSitesList {
 		this.sites = newList;
 	}
 	
-	public void add(HistoricalSite newSite) {
-		for (HistoricalSite hs: sites)
-			if (hs.equals(newSite))
-				return;
+	public void add(HistoricalSite newSite) {		
+		if (sites.contains(newSite))
+			return;
 		sites.add(newSite);
 	}
 	
 	public void delete(HistoricalSite oldSite) {
-		Iterator<HistoricalSite> iter = sites.iterator();
-		HistoricalSite hs;
-		while (iter.hasNext())
-			if (iter.next().equals(oldSite))
-				iter.remove();
+		sites.remove(oldSite);
+	}
+	
+	public void visit(HistoricalSite hs) {
+		for (HistoricalSite element: sites)
+			if (element.equals(hs)) {
+				element.setVisited();
+				return;
+			}
+		throw new NoSuchElementException(hs.getDisplayName() + " is not in the List.");
 	}
 	
 	public void discardList() {

@@ -36,6 +36,30 @@ public class HistoricalSitesListTest {
 	}
 	
 	@Test
+	public void testAddDoesNotDuplicate() {
+		HistoricalSite hs = new HistoricalSite("Franklin Park");
+		HistoricalSite hs2 = new HistoricalSite("Franklin Park");
+		HistoricalSitesList hsl = new HistoricalSitesList();
+		assertTrue(hsl.isEmpty());
+		hsl.add(hs);
+		assertTrue(hsl.size()==1);
+		hsl.add(hs2);
+		assertTrue(hsl.size()==1);
+	}
+	
+	@Test
+	public void testDeleteRemovesSimilarSites() {
+		HistoricalSite hs = new HistoricalSite("Franklin Park");
+		HistoricalSite hs2 = new HistoricalSite("Franklin Park");
+		HistoricalSitesList hsl = new HistoricalSitesList();
+		assertTrue(hsl.isEmpty());
+		hsl.add(hs);
+		assertTrue(hsl.size()==1);
+		hsl.delete(hs2);
+		assertTrue(hsl.isEmpty());
+	}
+	
+	@Test
 	public void testAdd() {
 		HistoricalSite hs = new HistoricalSite("Franklin Park");
 		HistoricalSitesList hsl = new HistoricalSitesList();
