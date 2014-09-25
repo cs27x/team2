@@ -3,7 +3,7 @@ package edu.vanderbilt.backnash;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import backnash.R;
+import team2.backnash.R;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
