@@ -17,6 +17,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;  
 import android.widget.ListView;  
 
+import main.java.edu.vanderbilt.cs278.team2.assign1.*;
+
 //An activity is essentially the code for a given screen of the app while it runs.
 //You create a new class that extends Activity for every screen, and then
 //give it it's functionality starting with the onCreate() function.
@@ -28,6 +30,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	//Example of message logging: (put it in a function)
 	//Log.v(LOG_TAG, "Test Message: Team2 rocks");
 	
+	HistoricalSitesBroker myBroker = new HistoricalSitesBroker();
 	
 	//<------ view variables ------>
 	
@@ -61,7 +64,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		// Create a dummy list of historical sites.  
 		String[] locations = new String[] { "Vanderbilt", "Rand", "Feathering Gill", "Stevenson", 
 										"Site A", "Site B", "Site C", "Site D", 
-										"Site E", "Site F", "Site G", "Site H"};    
+										"Site E", "Site F", "Site G", "Site H"};  
+		HistoricalSitesQueue tempQueue = myBroker.getUnvisitedList();
 		ArrayList<String> tempLocationList = new ArrayList<String>();  
 		
 		//The reason why we convert an a String[] into a ArrayList here is for convenience later on.
@@ -79,7 +83,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		// Add more locations. Only possible if List<String> was used in m_listAdapter's creation. 
 		m_listAdapter.add( "Commons" );  
 		m_listAdapter.add( "Kissam" );  
-
+		for (HistoricalSite hs : tempQueue.getCurrentList()) {
+			m_listAdapter.add(hs.getDisplayName());
+		}
+		
 		// Set the ArrayAdapter as the ListView's adapter. Android voodoo magic. 
 		m_mainListView.setAdapter( m_listAdapter );
 		
