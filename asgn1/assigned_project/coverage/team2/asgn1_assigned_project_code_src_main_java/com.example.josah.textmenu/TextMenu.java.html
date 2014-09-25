@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>TextMenu.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</a> &gt; <a href="../../index.html" class="el_group">team2</a> &gt; <a href="../index.html" class="el_bundle">asgn1/assigned_project/code/src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.example.josah.textmenu</a> &gt; <span class="el_source">TextMenu.java</span></div><h1>TextMenu.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package com.example.josah.textmenu;</span>
+ 
+/*
+ * This code is taken from: http://bytes.com/topic/java/insights/870013-text-based-menus
+ * Accessed 9/24/2014
+ * I do not claim any ownership or copyright.
+ */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+ 
+public class TextMenu extends TextMenuItem {
+ 
+<span class="fc" id="L18">    private static final TextMenuItem quit= new TextMenuItem(&quot;quit&quot;, new Runnable() {</span>
+        public void run() {
+<span class="nc" id="L20">            System.exit(0);</span>
+<span class="nc" id="L21">        }</span>
+    });
+ 
+<span class="fc" id="L24">    private static final TextMenuItem back= new TextMenuItem(&quot;back&quot;);</span>
+ 
+    List&lt;TextMenuItem&gt; items;
+ 
+<span class="nc" id="L28">    public TextMenu(String title, TextMenuItem ... items) { this(title, false, true, items); }</span>
+ 
+    public TextMenu(String title, boolean addBack, boolean addQuit, TextMenuItem ... items) {
+<span class="fc" id="L31">        super(title);</span>
+<span class="fc" id="L32">        setExec(this);</span>
+ 
+<span class="fc" id="L34">        initialize(addBack, addQuit, items);</span>
+<span class="fc" id="L35">    }</span>
+ 
+    private void initialize(boolean addBack, boolean addQuit, TextMenuItem ... items) {
+ 
+<span class="fc" id="L39">        this.items= new ArrayList&lt;TextMenuItem&gt;(Arrays.asList(items));</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (addBack) this.items.add(back);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (addQuit) this.items.add(quit);</span>
+<span class="fc" id="L42">    }</span>
+ 
+    private void display() {
+ 
+<span class="fc" id="L46">        int option= 0;</span>
+<span class="fc" id="L47">        System.out.println(getTitle()+&quot;:&quot;);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (TextMenuItem item : items) {</span>
+<span class="fc" id="L49">            System.out.println((option++)+&quot;: &quot;+item.getTitle());</span>
+        }
+<span class="fc" id="L51">        System.out.print(&quot;select option: &quot;);</span>
+<span class="fc" id="L52">        System.out.flush();</span>
+<span class="fc" id="L53">    }</span>
+ 
+    private TextMenuItem prompt() throws IOException {
+ 
+<span class="fc" id="L57">        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));</span>
+ 
+<span class="nc" id="L59">        while (true) {</span>
+ 
+<span class="fc" id="L61">            display();</span>
+ 
+<span class="fc" id="L63">            String line = br.readLine();</span>
+            try {
+<span class="fc" id="L65">                int option= Integer.parseInt(line);</span>
+<span class="pc bpc" id="L66" title="2 of 4 branches missed.">                if (option &gt;= 0 &amp;&amp; option &lt; items.size())</span>
+<span class="fc" id="L67">                    return items.get(option);</span>
+            }
+<span class="nc" id="L69">            catch (NumberFormatException e) { }</span>
+ 
+<span class="nc" id="L71">            System.out.println(&quot;not a valid menu option: &quot;+line);</span>
+        } 
+    }
+ 
+    public void run() {
+ 
+        try {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            for (TextMenuItem item= prompt(); item.isExec(); item= prompt())</span>
+<span class="fc" id="L79">                item.run();</span>
+<span class="fc" id="L80">        }</span>
+<span class="nc" id="L81">        catch (Throwable t) {</span>
+<span class="nc" id="L82">            t.printStackTrace(System.out);</span>
+        }
+<span class="fc" id="L84">    }</span>
+}
+ 
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</div></body></html>
