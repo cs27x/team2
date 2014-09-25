@@ -3,10 +3,12 @@ package main.java.edu.vanderbilt.cs278.team2.assign1;
 import android.location.*;
 
 import android.location.LocationListener;
+import android.os.Build;
 
 //import com.google.android.gms.location.*;
 import main.java.edu.vanderbilt.cs278.team2.assign1.myLocation;
 
+import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.*;
 
@@ -21,6 +23,7 @@ public class LocationFactory{
 	 * the desired latitude and longitude
 	 * Uses Geocoder
 	 */
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	public myLocation createLocationFromAddress(String address, Context context)
 	{
 		Geocoder mGeoCoder = new Geocoder(context, Locale.getDefault());
