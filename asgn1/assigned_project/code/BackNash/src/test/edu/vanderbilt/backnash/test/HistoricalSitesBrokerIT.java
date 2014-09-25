@@ -1,4 +1,4 @@
-package edu.vanderbilt.cs278.team2.assign1;
+package edu.vanderbilt.backnash.test;
 
 /*
  * The idea for this and the TextMenu and TextMenuItem classes are
@@ -8,11 +8,15 @@ package edu.vanderbilt.cs278.team2.assign1;
  */
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+
 import org.junit.Ignore;
 
-import com.example.josah.textmenu.*;
+import edu.vanderbilt.backnash.data.HistoricalSitesBroker;
+import edu.vanderbilt.backnash.internal.HistoricalSite;
+import edu.vanderbilt.backnash.internal.HistoricalSitesList;
+import edu.vanderbilt.backnash.ui.textmenu.TextMenu;
+import edu.vanderbilt.backnash.ui.textmenu.TextMenuItem;
 
 /*
  * Integration testing for Historical Sites Broker using a text interface
