@@ -1,6 +1,6 @@
 package edu.vanderbilt.backnash;
 
-import backnash.R;
+import team2.backnash.R;
 import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.os.Build;
