@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.vanderbilt.backnash.internal.HistoricalSite;
+
 public class JSONParser {
 	
 	private URL markerData;

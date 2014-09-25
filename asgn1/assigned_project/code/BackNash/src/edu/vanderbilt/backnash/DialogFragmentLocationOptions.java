@@ -1,7 +1,6 @@
 package edu.vanderbilt.backnash;
 
-import team2.backnash.R;
-import android.annotation.SuppressLint;
+import backnash.R;
 import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DialogFragmentLocationOptions extends DialogFragment implements
@@ -25,18 +23,20 @@ public class DialogFragmentLocationOptions extends DialogFragment implements
 
 	ListView mylist;
 
+	//creates the fragment view using the layout R.layout.location_dialog_fragment
+	//This is called when a view containing this activity is created
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.location_dialog_fragment, null,
-				false);
+		View view = inflater.inflate(R.layout.location_dialog_fragment, null, false);
 		mylist = (ListView) view.findViewById(R.id.listOfLocationOptions);
 
 		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		return view;
 	}
 
+	//This is called when the dialogFragmentLocationOptions object is created
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 

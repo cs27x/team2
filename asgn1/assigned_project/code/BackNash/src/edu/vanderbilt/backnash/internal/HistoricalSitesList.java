@@ -1,9 +1,7 @@
 package edu.vanderbilt.backnash.internal;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class HistoricalSitesList {
@@ -13,11 +11,11 @@ public class HistoricalSitesList {
 		sites = new ArrayList<HistoricalSite>();
 	}
 	
-	protected List<HistoricalSite> getCurrentList() {
+	public List<HistoricalSite> getCurrentList() {
 		return sites;
 	}
 	
-	protected void setCurrentList(List<HistoricalSite> newList) {
+	public void setCurrentList(List<HistoricalSite> newList) {
 		this.sites = newList;
 	}
 	

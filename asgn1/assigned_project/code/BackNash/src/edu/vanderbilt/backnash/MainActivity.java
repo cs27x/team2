@@ -1,10 +1,9 @@
 package edu.vanderbilt.backnash;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import team2.backnash.R;
+import backnash.R;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;

@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import edu.vanderbilt.backnash.location.Location;
+
 public class HistoricalSitesQueue extends HistoricalSitesList {
 	
 	protected class DistanceComparator implements Comparator<HistoricalSite> {		
@@ -38,11 +40,9 @@ public class HistoricalSitesQueue extends HistoricalSitesList {
 	public void rearrange(HistoricalSite lhs, HistoricalSite rhs) throws NoSuchElementException {
 		// first check if they're both in the queue
 		if (!sites.contains(lhs))
-			throw new NoSuchElementException(lhs.getDisplayName()
-					+ " is not in the List.");
+			throw new NoSuchElementException(lhs.getDisplayName() + " is not in the List.");
 		if (!sites.contains(rhs))
-			throw new NoSuchElementException(rhs.getDisplayName()
-					+ " is not in the List.");
+			throw new NoSuchElementException(rhs.getDisplayName() + " is not in the List.");
 
 		int index_lhs, index_rhs;
 		index_lhs = sites.indexOf(lhs);

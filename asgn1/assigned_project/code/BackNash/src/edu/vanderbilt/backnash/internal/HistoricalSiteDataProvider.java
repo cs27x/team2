@@ -4,9 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import edu.vanderbilt.backnash.data.JSONParser;
 
 public class HistoricalSiteDataProvider {
