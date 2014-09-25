@@ -4,8 +4,8 @@ import android.location.*;
 
 import android.location.LocationListener;
 
-import com.google.android.gms.location.*;
-import com.example.nashpast.myLocation;
+//import com.google.android.gms.location.*;
+import main.java.edu.vanderbilt.cs278.team2.assign1.myLocation;
 
 import android.app.Service;
 import android.content.*;
