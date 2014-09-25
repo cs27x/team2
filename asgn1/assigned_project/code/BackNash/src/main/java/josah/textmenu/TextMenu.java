@@ -1,4 +1,4 @@
-package com.example.josah.textmenu;
+package main.java.josah.textmenu;
  
 /*
  * This code is taken from: http://bytes.com/topic/java/insights/870013-text-based-menus

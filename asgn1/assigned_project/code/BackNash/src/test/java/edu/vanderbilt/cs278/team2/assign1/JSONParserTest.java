@@ -1,4 +1,4 @@
-package edu.vanderbilt.cs278.team2.assign1;
+package test.java.edu.vanderbilt.cs278.team2.assign1;
 
 import static org.junit.Assert.*;
 

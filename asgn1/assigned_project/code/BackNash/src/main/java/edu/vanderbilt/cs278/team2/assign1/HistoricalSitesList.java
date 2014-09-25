@@ -1,4 +1,4 @@
-package edu.vanderbilt.cs278.team2.assign1;
+package main.java.edu.vanderbilt.cs278.team2.assign1;
 
 import java.util.Collections;
 import java.util.List;

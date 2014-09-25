@@ -1,3 +1,4 @@
+package main.java.edu.vanderbilt.cs278.team2.assign1;
 
 import android.location.*;
 

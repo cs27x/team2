@@ -1,0 +1,49 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+    
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+dependencies {
+	compile("joda-time:joda-time:2.4")
+	compile("org.apache.commons:commons-lang3:3.3.2")
+    compile("commons-io:commons-io:2.4")
+    compile("commons-codec:commons-codec:1.9")
+    compile("commons-collections:commons-collections:3.2.1")
+    compile("com.fasterxml.jackson.core:jackson-databind:2.4.2")
+	testCompile("junit:junit:4.9")
+	testCompile("com.fasterxml.jackson.core:jackson-databind:2.4.2")
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'asgn1/assigned_project/code/src/main/java'
+		}
+		resources {
+			srcDir 'asgn1/assigned_project/code/src/main/resources'
+		}
+	}
+	test {
+		java {
+			srcDir 'asgn1/assigned_project/code/src/test/java'
+		}
+		resources {
+			srcDir 'asgn1/assigned_project/code/src/test/resources'
+		}
+	}
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
