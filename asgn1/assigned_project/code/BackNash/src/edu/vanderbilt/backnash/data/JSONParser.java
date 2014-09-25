@@ -1,4 +1,4 @@
-package edu.vanderbilt.cs278.team2.assign1;
+package edu.vanderbilt.backnash.data;
 
 import java.net.URL;
 import java.util.List;
