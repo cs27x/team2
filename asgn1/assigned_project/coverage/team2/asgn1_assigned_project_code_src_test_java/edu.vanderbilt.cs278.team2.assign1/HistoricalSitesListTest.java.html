@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>HistoricalSitesListTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</a> &gt; <a href="../../index.html" class="el_group">team2</a> &gt; <a href="../index.html" class="el_bundle">asgn1/assigned_project/code/src/test/java</a> &gt; <a href="index.source.html" class="el_package">edu.vanderbilt.cs278.team2.assign1</a> &gt; <span class="el_source">HistoricalSitesListTest.java</span></div><h1>HistoricalSitesListTest.java</h1><pre class="source lang-java linenums">package edu.vanderbilt.cs278.team2.assign1;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import org.junit.Test;
+
+import edu.vanderbilt.cs278.team2.assign1.HistoricalSite;
+import edu.vanderbilt.cs278.team2.assign1.HistoricalSitesList;
+
+<span class="nc" id="L14">public class HistoricalSitesListTest {</span>
+
+	@Test
+	public void testListSetterAndGetter() {
+<span class="nc" id="L18">		HistoricalSite hs = new HistoricalSite(new String(&quot;Franklin Park&quot;));</span>
+<span class="nc" id="L19">		HistoricalSite hs2 = new HistoricalSite(new String(&quot;Lewis Ginter Gardens&quot;));</span>
+		
+<span class="nc" id="L21">		HistoricalSitesList hsl = new HistoricalSitesList();</span>
+<span class="nc" id="L22">		List&lt;HistoricalSite&gt; sites = new ArrayList&lt;HistoricalSite&gt;(2);</span>
+<span class="nc" id="L23">		sites.add(hs);</span>
+<span class="nc" id="L24">		sites.add(hs2);</span>
+<span class="nc" id="L25">		hsl.setCurrentList(sites);</span>
+		
+<span class="nc" id="L27">		Iterator&lt;HistoricalSite&gt; iter = hsl.getCurrentList().iterator();</span>
+		try {
+<span class="nc" id="L29">			assertTrue(hs.equals(iter.next()));</span>
+<span class="nc" id="L30">			assertTrue(hs2.equals(iter.next()));</span>
+<span class="nc" id="L31">		}</span>
+<span class="nc" id="L32">		catch(RuntimeException e) {</span>
+<span class="nc" id="L33">			fail(&quot;List was of incorrect size&quot;);</span>
+		}
+		
+<span class="nc" id="L36">	}</span>
+	
+	@Test
+	public void testAddDoesNotDuplicate() {
+<span class="nc" id="L40">		HistoricalSite hs = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L41">		HistoricalSite hs2 = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L42">		HistoricalSitesList hsl = new HistoricalSitesList();</span>
+<span class="nc" id="L43">		assertTrue(hsl.isEmpty());</span>
+<span class="nc" id="L44">		hsl.add(hs);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		assertTrue(hsl.size()==1);</span>
+<span class="nc" id="L46">		hsl.add(hs2);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		assertTrue(hsl.size()==1);</span>
+<span class="nc" id="L48">	}</span>
+	
+	@Test
+	public void testDeleteRemovesSimilarSites() {
+<span class="nc" id="L52">		HistoricalSite hs = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L53">		HistoricalSite hs2 = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L54">		HistoricalSitesList hsl = new HistoricalSitesList();</span>
+<span class="nc" id="L55">		assertTrue(hsl.isEmpty());</span>
+<span class="nc" id="L56">		hsl.add(hs);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		assertTrue(hsl.size()==1);</span>
+<span class="nc" id="L58">		hsl.delete(hs2);</span>
+<span class="nc" id="L59">		assertTrue(hsl.isEmpty());</span>
+<span class="nc" id="L60">	}</span>
+	
+	@Test
+	public void testAdd() {
+<span class="nc" id="L64">		HistoricalSite hs = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L65">		HistoricalSitesList hsl = new HistoricalSitesList();</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">		assertTrue(hsl.getCurrentList().size()==0);</span>
+<span class="nc" id="L67">		hsl.add(hs);</span>
+<span class="nc" id="L68">		assertTrue(hsl.getCurrentList().get(0).equals(hs));</span>
+		
+		
+<span class="nc" id="L71">	}</span>
+	
+	@Test
+	public void testDelete() {
+<span class="nc" id="L75">		HistoricalSite hs = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L76">		HistoricalSitesList hsl = new HistoricalSitesList();</span>
+<span class="nc" id="L77">		assertTrue(hsl.getCurrentList().isEmpty());</span>
+<span class="nc" id="L78">		hsl.add(hs);</span>
+<span class="nc" id="L79">		assertFalse(hsl.getCurrentList().isEmpty());</span>
+<span class="nc" id="L80">		hsl.delete(hs);</span>
+<span class="nc" id="L81">		assertTrue(hsl.getCurrentList().isEmpty());</span>
+<span class="nc" id="L82">	}</span>
+	
+	@Test
+	public void testClear() {
+<span class="nc" id="L86">		HistoricalSite hs = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L87">		HistoricalSitesList hsl = new HistoricalSitesList();</span>
+<span class="nc" id="L88">		assertTrue(hsl.getCurrentList().isEmpty());</span>
+<span class="nc" id="L89">		hsl.add(hs);</span>
+<span class="nc" id="L90">		assertFalse(hsl.getCurrentList().isEmpty());</span>
+<span class="nc" id="L91">		hsl.discardList();</span>
+<span class="nc" id="L92">		assertTrue(hsl.getCurrentList().isEmpty());</span>
+<span class="nc" id="L93">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</div></body></html>

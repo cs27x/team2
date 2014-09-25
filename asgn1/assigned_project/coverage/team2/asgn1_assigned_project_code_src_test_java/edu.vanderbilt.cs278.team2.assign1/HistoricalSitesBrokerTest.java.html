@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>HistoricalSitesBrokerTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</a> &gt; <a href="../../index.html" class="el_group">team2</a> &gt; <a href="../index.html" class="el_bundle">asgn1/assigned_project/code/src/test/java</a> &gt; <a href="index.source.html" class="el_package">edu.vanderbilt.cs278.team2.assign1</a> &gt; <span class="el_source">HistoricalSitesBrokerTest.java</span></div><h1>HistoricalSitesBrokerTest.java</h1><pre class="source lang-java linenums">package edu.vanderbilt.cs278.team2.assign1;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import java.util.Iterator;
+
+<span class="nc" id="L8">public class HistoricalSitesBrokerTest {</span>
+<span class="nc" id="L9">	private HistoricalSitesBroker hsb = new HistoricalSitesBroker();</span>
+	private static final int NASHVILLE_GOV_HISTORICAL_SITES_MAX_COUNT = 155;
+
+	@Test
+	public void testGetUnvisitedList() {
+<span class="nc" id="L14">		hsb.getCurrentList().discardList();</span>
+<span class="nc" id="L15">		hsb.add(new HistoricalSite(&quot;Franklin Park&quot;));</span>
+<span class="nc" id="L16">		hsb.add(new HistoricalSite(&quot;Lewis Ginter Gardens&quot;));</span>
+<span class="nc" id="L17">		assertFalse(hsb.getCurrentList().getCurrentList().isEmpty());</span>
+<span class="nc" id="L18">		Iterator&lt;HistoricalSite&gt; iter = hsb.getCurrentList().getCurrentList().iterator();</span>
+<span class="nc" id="L19">		HistoricalSite hs = iter.next();</span>
+<span class="nc" id="L20">		hs.setVisited();</span>
+<span class="nc" id="L21">		HistoricalSitesQueue hsq_unvisited = hsb.getUnvisitedList();</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">		assertTrue(hsq_unvisited.size()==1);</span>
+<span class="nc" id="L23">		assertFalse(hsq_unvisited.getCurrentList().iterator().next().equals(hs));</span>
+		
+<span class="nc" id="L25">	}</span>
+	
+	@Test
+	public void testReorderListByDistance() {
+<span class="nc" id="L29">		HistoricalSite hs1 = new HistoricalSite(&quot;Franklin Park&quot;);</span>
+<span class="nc" id="L30">		HistoricalSite hs2 = new HistoricalSite(&quot;Lewis Ginter Gardens&quot;);</span>
+<span class="nc" id="L31">		HistoricalSite hs3 = new HistoricalSite(&quot;Robert E. Lee Statue&quot;);</span>
+<span class="nc" id="L32">		hs1.setLocation(new Location(36.145426, -86.778297));</span>
+<span class="nc" id="L33">		hs2.setLocation(new Location(35.009388, -84.595385));</span>
+<span class="nc" id="L34">		hs3.setLocation(new Location(37.516996, -77.448288));</span>
+		
+<span class="nc" id="L36">		hsb.getCurrentList().discardList();</span>
+<span class="nc" id="L37">		hsb.add(hs3);</span>
+<span class="nc" id="L38">		hsb.add(hs1);</span>
+<span class="nc" id="L39">		hsb.add(hs2);</span>
+		
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		assertTrue(hsb.getCurrentList().size()==3);</span>
+		
+<span class="nc" id="L43">		Location ourLocation = new Location(36.142203, -86.802715);</span>
+		
+<span class="nc" id="L45">		HistoricalSitesQueue reorderedList = hsb.getCurrentList().getListReorderedByDistanceToLocation(ourLocation);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">		assertTrue(reorderedList.size()==3);</span>
+<span class="nc" id="L47">		Iterator&lt;HistoricalSite&gt; iter = reorderedList.getCurrentList().iterator();</span>
+		
+<span class="nc" id="L49">		assertTrue(iter.next().equals(hs1));</span>
+<span class="nc" id="L50">		assertTrue(iter.next().equals(hs2));</span>
+<span class="nc" id="L51">		assertTrue(iter.next().equals(hs3));</span>
+<span class="nc" id="L52">	}</span>
+	
+	@Test
+	public void testMaintainsSeparateVisitedAndAllLists() throws Exception {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		assertTrue(hsb.getMasterList().size()== NASHVILLE_GOV_HISTORICAL_SITES_MAX_COUNT);</span>
+		
+<span class="nc" id="L58">		Iterator&lt;HistoricalSite&gt; iter = hsb.getMasterList().getCurrentList().iterator();</span>
+		
+<span class="nc" id="L60">		HistoricalSite hs1 = iter.next();</span>
+<span class="nc" id="L61">		HistoricalSite hs2 = iter.next();</span>
+		
+<span class="nc" id="L63">		hsb.add(hs1);</span>
+<span class="nc" id="L64">		hsb.add(hs2);</span>
+		
+<span class="nc bnc" id="L66" title="All 2 branches missed.">		assertTrue(hsb.getCurrentList().size() == 2);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">		assertTrue(hsb.getUnvisitedList().size()==2);</span>
+		
+<span class="nc" id="L69">		hsb.visit(hs1);</span>
+<span class="nc" id="L70">		hsb.visit(hs2);</span>
+		
+<span class="nc bnc" id="L72" title="All 2 branches missed.">		assertTrue(hsb.getCurrentList().size() == 2);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">		assertTrue(hsb.getMasterList().size()== NASHVILLE_GOV_HISTORICAL_SITES_MAX_COUNT);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">		assertTrue(hsb.getVisitedList().size() == 2);</span>
+		
+<span class="nc" id="L76">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>HistoricalSitesBrokerIT (Sep 24, 2014 3:03:23 PM)</div></body></html>
