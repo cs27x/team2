@@ -1,6 +1,15 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.13.0'
+    }
+}
 
+// apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'android'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -20,30 +29,45 @@ dependencies {
     compile("commons-codec:commons-codec:1.9")
     compile("commons-collections:commons-collections:3.2.1")
     compile("com.fasterxml.jackson.core:jackson-databind:2.4.2")
-	testCompile("junit:junit:4.9")
-	testCompile("com.fasterxml.jackson.core:jackson-databind:2.4.2")
+    compile("com.android.support:appcompat-v7:19.1.+")
+	//testCompile("junit:junit:4.9")
+	//testCompile("com.fasterxml.jackson.core:jackson-databind:2.4.2")
+    // classpath 'com.android.tools.build:gradle:0.13'
+
+}
+android {
+    compileSdkVersion 19
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'asgn1/assigned_project/code/BackNash/AndroidManifest.xml'
+            java.srcDirs = ['asgn1/assigned_project/code/BackNash/src']
+            resources.srcDirs = ['asgn1/assigned_project/code/BackNash/res']
+            // aidl.srcDirs = ['src']
+            // renderscript.srcDirs = ['src']
+            res.srcDirs = ['asgn1/assigned_project/code/BackNash/res']
+            assets.srcDirs = ['asgn1/assigned_project/code/BackNash/assets']
+        }
+
+        // androidTest.setRoot('tests')
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
-sourceSets {
-	main {
-		java {
-			srcDir 'asgn1/assigned_project/code/src/main/java'
-		}
-		resources {
-			srcDir 'asgn1/assigned_project/code/src/main/resources'
-		}
-	}
-	test {
-		java {
-			srcDir 'asgn1/assigned_project/code/src/test/java'
-		}
-		resources {
-			srcDir 'asgn1/assigned_project/code/src/test/resources'
-		}
-	}
-}
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+    gradleVersion = '2.1'
 }
 
