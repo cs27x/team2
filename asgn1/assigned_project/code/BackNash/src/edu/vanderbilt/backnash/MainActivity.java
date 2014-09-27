@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.vanderbilt.backnash.data.HistoricalSitesBroker;
+import edu.vanderbilt.backnash.internal.HistoricalSitesList;
 
 import team2.backnash.R;
 import android.annotation.SuppressLint;
@@ -17,16 +18,71 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.app.AlertDialog.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 
 //An activity is essentially the code for a given screen of the app while it runs.
 //You create a new class that extends Activity for every screen, and then
 //give it it's functionality starting with the onCreate() function.
 //Implements OnItemClickListener is added because this Activity has a OnItemClickListener
 public class MainActivity extends Activity implements OnItemClickListener {
+
+    class RetrieveJSONTask extends AsyncTask<HistoricalSitesBroker, Void, HistoricalSitesList> {
+
+        private Exception exception = null;
+        private Activity mainActivity;
+
+        @Override
+        protected HistoricalSitesList doInBackground(HistoricalSitesBroker ... broker) {
+            // jdk edit: getMasterList from HistoricalSitesBroker and get display names
+            try {
+                return broker[0].getMasterList();
+            }
+            catch (Exception e) {
+//                new AlertDialog.Builder(this)
+//                        .setTitle("JSON Fetch Error")
+//                        .setMessage(e.toString())
+//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // continue with delete
+//                            }
+//                        })
+//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // do nothing
+//                            }
+//                        })
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .show();
+                e.printStackTrace();
+                this.exception = e;
+            }
+            return null;
+        }
+
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+        @Override
+        protected void onPostExecute(HistoricalSitesList feed) {
+            // TODO: check this.exception
+            // TODO: do something with the feed
+            if (feed == null && exception != null)
+                return;
+
+            ArrayAdapter<String> adapter = null;
+            try {
+                adapter = (ArrayAdapter<String>) m_mainListView.getAdapter();
+                adapter.clear();
+                adapter.addAll(feed.getDisplayNames());
+                adapter.notifyDataSetChanged();
+            } catch (ClassCastException|NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 	// String that we will use as the tag name for all log messages in this
 	// activity.
@@ -49,7 +105,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	// m_mainListvView)
 	// with several instances of another given view (in this case
 	// R.layout.simplerow)
-	private ArrayAdapter<String> m_listAdapter;
+	private ListAdapter m_listAdapter;
+    private HistoricalSitesBroker broker;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -73,35 +130,12 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		String[] locations = new String[] { "Vanderbilt", "Rand",
 				"Feathering Gill", "Stevenson", "Site A", "Site B", "Site C",
 				"Site D", "Site E", "Site F", "Site G", "Site H" };
-		//ArrayList<String> tempLocationList = new ArrayList<String>();
-		ArrayList<String> tempLocationList = null;
+		ArrayList<String> tempLocationList = new ArrayList<String>();
 		
 		// The reason why we convert an a String[] into a ArrayList here is for
 		// convenience later on.
-		//tempLocationList.addAll(Arrays.asList(locations));
-		
-		// jdk edit: getMasterList from HistoricalSitesBroker and get display names
-		try {
-			tempLocationList = new ArrayList<>(new HistoricalSitesBroker().getMasterList().getDisplayNames());
-		}
-		catch (Exception e) {
-			new AlertDialog.Builder(this)
-				.setTitle("JSON Fetch Error")
-				.setMessage(e.toString())
-			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-			        public void onClick(DialogInterface dialog, int which) { 
-			            // continue with delete
-			        }
-			     })
-			    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-			        public void onClick(DialogInterface dialog, int which) { 
-			            // do nothing
-			        }
-			     })
-			    .setIcon(android.R.drawable.ic_dialog_alert)
-			     .show();
-			e.printStackTrace();
-		}
+		tempLocationList.addAll(Arrays.asList(locations));
+
 
 		// Create ArrayAdapter using the tempLocationList.
 		// An ArrayAdapter is a android class used to convert things individual
@@ -119,11 +153,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		// Add more locations. Only possible if List<String> was used in
 		// m_listAdapter's creation.
-		m_listAdapter.add("Commons");
-		m_listAdapter.add("Kissam");
+//		m_listAdapter.add("Commons");
+//		m_listAdapter.add("Kissam");
 
 		// Set the ArrayAdapter as the ListView's adapter. Android voodoo magic.
 		m_mainListView.setAdapter(m_listAdapter);
+        broker = new HistoricalSitesBroker();
+        new RetrieveJSONTask().execute(broker);
 
 	}
 

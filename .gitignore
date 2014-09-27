@@ -12,3 +12,7 @@
 hs_err_pid*
 /build/
 /bin/
+
+# ignore generated files within the android projects
+asgn1/assigned_project/code/BackNash/bin/*
+asgn1/assigned_project/code/appcompat_v7/bin/*
