@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+
+import edu.vanderbilt.backnash.internal.HistoricalSite;
+
 public class HistoricalSitesList {
 	List<HistoricalSite> sites;
 	
@@ -48,5 +53,17 @@ public class HistoricalSitesList {
 	
 	public int size() {
 		return sites.size();
+	}
+	
+	public List<String> getDisplayNames() {
+		final List<String> output =
+			    Lists.transform(sites, new Function<HistoricalSite, String>(){
+
+			        @Override
+			        public String apply(final HistoricalSite input){
+			            return input.getDisplayName();
+			        }
+		});
+		return output;
 	}
 }

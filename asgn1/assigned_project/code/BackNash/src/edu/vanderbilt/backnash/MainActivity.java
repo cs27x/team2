@@ -3,6 +3,8 @@ package edu.vanderbilt.backnash;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.vanderbilt.backnash.data.HistoricalSitesBroker;
+
 import team2.backnash.R;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -16,6 +18,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.app.AlertDialog.*;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 //An activity is essentially the code for a given screen of the app while it runs.
 //You create a new class that extends Activity for every screen, and then
@@ -68,11 +73,35 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		String[] locations = new String[] { "Vanderbilt", "Rand",
 				"Feathering Gill", "Stevenson", "Site A", "Site B", "Site C",
 				"Site D", "Site E", "Site F", "Site G", "Site H" };
-		ArrayList<String> tempLocationList = new ArrayList<String>();
-
+		//ArrayList<String> tempLocationList = new ArrayList<String>();
+		ArrayList<String> tempLocationList = null;
+		
 		// The reason why we convert an a String[] into a ArrayList here is for
 		// convenience later on.
-		tempLocationList.addAll(Arrays.asList(locations));
+		//tempLocationList.addAll(Arrays.asList(locations));
+		
+		// jdk edit: getMasterList from HistoricalSitesBroker and get display names
+		try {
+			tempLocationList = new ArrayList<>(new HistoricalSitesBroker().getMasterList().getDisplayNames());
+		}
+		catch (Exception e) {
+			new AlertDialog.Builder(this)
+				.setTitle("JSON Fetch Error")
+				.setMessage(e.toString())
+			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface dialog, int which) { 
+			            // continue with delete
+			        }
+			     })
+			    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface dialog, int which) { 
+			            // do nothing
+			        }
+			     })
+			    .setIcon(android.R.drawable.ic_dialog_alert)
+			     .show();
+			e.printStackTrace();
+		}
 
 		// Create ArrayAdapter using the tempLocationList.
 		// An ArrayAdapter is a android class used to convert things individual
