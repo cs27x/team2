@@ -1,10 +1,9 @@
 team2
 =====
-Use Android Studio to open and (gradle) build the application.
-
+For greatest ease, use Android Studio to open and (Gradle) build the application.
 
 ##Team Members
-- Emily Crowe
+- Emily Crowe (team lead for Sprint #1)
 - Jejo Koola
 - Michael Schoenfield 
 - Oliver Dormody
